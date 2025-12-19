@@ -6,8 +6,6 @@
 #include "Te.h"
 using namespace std;
 
-
-
 void LomosCoffee() {
     int opcion;
     bool resp = true;

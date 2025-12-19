@@ -19,6 +19,7 @@ public:
 	void cargarMenu();
 
 	Menu operator+(Bebida* b);
+
 	void agregar(Bebida* b);
 	int tam();
 	Bebida* getBebida(int b2);

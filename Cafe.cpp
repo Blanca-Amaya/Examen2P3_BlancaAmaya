@@ -9,7 +9,7 @@ Cafe::~Cafe() {
 
 double Cafe::calcularPrecioFinal() {
 	double precio = getPrecioBase();
-	return precio + (gramos_cafeina / 100) * precio;
+	return precio + (gramos_cafeina / 100.0) * precio;
 }
 
 int Cafe::getGramosCafeina() const {

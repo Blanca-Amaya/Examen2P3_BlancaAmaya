@@ -5,7 +5,7 @@ Chocolate::Chocolate(const string nombre2, double precioBase2, int gramos_azucar
 
 double Chocolate::calcularPrecioFinal() {
 	double precio = getPrecioBase();
-	return precio + (gramos_azucar / 100) * precio;
+	return precio + (gramos_azucar / 100.0) * precio;
 }
 
 int Chocolate::getGramosAzucar() const {

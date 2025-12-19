@@ -8,41 +8,58 @@ using namespace std;
 
 Historial::~Historial() {
 	for (int i = 0; i < (int)bebidas.size(); i++) {
-		delete bebidas[i];
+		if (bebidas[i] != nullptr) {
+			delete bebidas[i];
+			bebidas[i] = nullptr;
+		}
 	}
 	bebidas.clear();
 }
 
 void Historial::guardarHistorial() {
-	ofstream archivo("Historial.txt", ios::binary);
-	archivo.write((char*)& total_vendido, sizeof(total_vendido));
+	ofstream archivo("Historial.dat", ios::binary);
+	if (!archivo.is_open()) {
+		cout << "Error al abrir archivo para guardar." << endl;
+		return;
+	}
+
+	archivo.write((char*)&total_vendido, sizeof(total_vendido));
+
 	for (int i = 0; i < (int)bebidas.size(); i++) {
+		if (bebidas[i] == nullptr) continue;
+
 		string nombre = bebidas[i]->getNombre();
 		double precio = bebidas[i]->calcularPrecioFinal();
-		int tamanio = nombre.size();
+
+		int tamanio = (int)nombre.size();
 		archivo.write((char*)&tamanio, sizeof(tamanio));
 		archivo.write(nombre.c_str(), tamanio);
+
 		archivo.write((char*)&precio, sizeof(precio));
-	} 
+	}
 	archivo.close();
+	cout << "Historial guardado." << endl;
 }
 
 void Historial::cargarHistorial() {
-	ifstream archivo("Historial.", ios::binary);
-	if (archivo.is_open()) {
+	ifstream archivo("Historial.dat", ios::binary);
+	if (!archivo.is_open()) {
 		cout << "No hay historial" << endl;
 		return;
 	}
+
 	double total;
 	archivo.read((char*)&total, sizeof(total));
+
 	cout << "Historial de Bebidas Vendidas en Memoria: " << endl;
-	while (archivo) {
-		size_t tamanio;
+
+	int contador = 1;
+	while (!archivo.eof()) {
+		int tamanio;
 		archivo.read((char*)&tamanio, sizeof(tamanio));
-		if (!archivo) {
-			break;
-		}
-		char* c = new char(tamanio + 1);
+		if (archivo.eof()) break;
+
+		char* c = new char[tamanio + 1];
 		archivo.read(c, tamanio);
 		c[tamanio] = '\0';
 		string nombre(c);
@@ -50,12 +67,16 @@ void Historial::cargarHistorial() {
 
 		double precio;
 		archivo.read((char*)&precio, sizeof(precio));
-		if (!archivo) {
-			break;
-		}
-		
-		archivo.close();
+		if (archivo.eof()) break;
+
+		cout << "No. " << contador << " Nombre: " << nombre << " PrecioFinal: " << precio << endl;
+		contador++;
 	}
+
+	cout << "Ingresos totales hasta el momento: " << endl;
+	cout << "L. " << total << endl;
+
+	archivo.close();
 }
 
 Historial Historial::operator+(Bebida* b) {
@@ -64,13 +85,43 @@ Historial Historial::operator+(Bebida* b) {
 }
 
 void Historial::agregar(Bebida* b) {
-	bebidas.push_back(b);
-	total_vendido += b->calcularPrecioFinal();
+	if (b == nullptr) return;
+
+	Bebida* copia = nullptr;
+
+	Cafe* cafe = dynamic_cast<Cafe*>(b);
+	Te* te = dynamic_cast<Te*>(b);
+	Chocolate* chocolate = dynamic_cast<Chocolate*>(b);
+
+	if (cafe != nullptr) {
+		copia = new Cafe(b->getNombre(), b->getPrecioBase(), cafe->getGramosCafeina());
+	}
+	else if (te != nullptr) {
+		copia = new Te(b->getNombre(), b->getPrecioBase(), te->getEsenciaHerbal());
+	}
+	else if (chocolate != nullptr) {
+		copia = new Chocolate(b->getNombre(), b->getPrecioBase(), chocolate->getGramosAzucar());
+	}
+
+	if (copia != nullptr) {
+		bebidas.push_back(copia);
+		total_vendido += copia->calcularPrecioFinal();
+	}
 }
 
 void Historial::mostrarHistorial() {
-	for (int i = 0; i < (int)bebidas.size(); i++) {
-		cout << "No. " << i + 1 << " Nombre: " << bebidas[i]->getNombre() << " PrecioFinal: " << bebidas[i]->calcularPrecioFinal() << endl;
+	if (bebidas.empty()) {
+		cout << "Historial vacio" << endl;
+		return;
 	}
-	cout << "Ingresos totales hasta el momento: " << endl << "L. " << total_vendido << endl;
+
+	cout << "Historial de Bebidas Vendidas en Memoria: " << endl;
+	for (int i = 0; i < (int)bebidas.size(); i++) {
+		if (bebidas[i] != nullptr) {
+			cout << "No. " << i + 1 << " Nombre: " << bebidas[i]->getNombre()
+				<< " PrecioFinal: " << bebidas[i]->calcularPrecioFinal() << endl;
+		}
+	}
+	cout << "Ingresos totales hasta el momento: " << endl;
+	cout << "L. " << total_vendido << endl;
 }

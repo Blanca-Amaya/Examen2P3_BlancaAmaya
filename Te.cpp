@@ -5,7 +5,7 @@ Te::Te(string nombre2, double precioBase2, int esencia_herbal2) : Bebida(nombre2
 
 double Te::calcularPrecioFinal() {
 	double precio = getPrecioBase();
-	return precio + (esencia_herbal / 100) * precio;
+	return precio + (esencia_herbal / 100.0) * precio;
 }
 
 int Te::getEsenciaHerbal() const {
