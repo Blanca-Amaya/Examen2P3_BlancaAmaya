@@ -1,25 +1,18 @@
 #include <iostream>
 #include "Menu.h"
 #include "Historial.h"
-
+#include "Cafe.h"
+#include "Chocolate.h"
+#include "Te.h"
 using namespace std;
 
-void AgregarMenu() {
-    string nombre;
-    double precio;
-    int tipo;
-    int valor;
-    cout << "Ingrese el nombre de la bebida: ";
-    cin >> nombre;
-    cout << "Ingrese Precio Base de la bebida: "
-}
 
 
 void LomosCoffee() {
     int opcion;
     bool resp = true;
-    Menu menu;
-    Historial historial;
+    Menu* menu = new Menu();
+    Historial* historial = new Historial();
     while (resp) {
         cout << "¡Bienvenido al sistema Lomo's Coffee! Pónganse cómodo y siéntese a manejar su local :D" << endl;
         cout << "1. Ver Menú" << endl;
@@ -35,28 +28,110 @@ void LomosCoffee() {
         cin >> opcion;
         switch (opcion) {
         case 1:
-            menu.verMenu();
+            menu->verMenu();
             break;
-        case 2:
-
+        case 2: {
+            string nombre;
+            double precio;
+            int tipo;
+            cout << "Ingrese el nombre de la bebida: ";
+            cin >> nombre;
+            cout << "Ingrese Precio Base de la bebida: ";
+            cin >> precio;
+            if (precio <= 0) {
+                cout << "Precio inválido :C" << endl;
+                break;
+            }
+            cout << "1. Cafe, 2. Te, 3. Chocolate";
+            cin >> tipo;
+            int valor;
+            Bebida* b = nullptr;
+            switch (tipo) {
+            case 1:
+                cout << "Ingrese gramos de cafeina: ";
+                cin >> valor;
+                if (valor < 1 || valor > 100) {
+                    cout << "Valor debe ser 1-100" << endl;
+                    break;
+                }
+                b = new Cafe(nombre, precio, valor);
+            case 2:
+                cout << "Ingrese la esencia herbal: ";
+                cin >> valor;
+                if (valor < 1 || valor > 100) {
+                    cout << "Valor debe ser 1-100" << endl;
+                    break;
+                }
+                b = new Te(nombre, precio, valor);
+            case 3:
+                cout << "Ingrese gramos de azucar: ";
+                cin >> valor;
+                if (valor < 1 || valor > 100) {
+                    cout << "Valor debe ser 1-100" << endl;
+                    break;
+                }
+                b = new Chocolate(nombre, precio, valor);
+            default:
+                cout << "Opcion invalida";
+                break;
+            }
+            if (b) {
+                *menu = *menu + b;
+                cout << "Bebida agregada." << endl;
+            }
             break;
+        }
+            
         case 3:
-
+            menu->verMenu();
+            if (menu->tam() > 0) {
+                int i;
+                do {
+                    cout << "Elija la bebida que quiere eliminar (1-" << menu->tam() << "): " << endl;
+                    cin >> i;
+                    if (i < 1 || i > menu->tam()) {
+                        cout << "Indice invalido. " << endl;
+                    }
+                } while (i < 1 || 1 > menu->tam());
+            }
             break;
         case 4:
-
+            menu->vaciarMenu();
             break;
         case 5:
-
+            menu->guardarMenu();
             break;
         case 6:
-
+            menu->cargarMenu();
             break;
-        case 7:
+        case 7: {
+            menu->verMenu();
+            if (menu->tam() > 0) {
+                int id;
+                do {
+                    cout << "Ingrese el indice de la bebida a vender: ";
+                    cin >> id;
+                    if (id == 0) {
+                        break;
+                    } 
 
-            break;
+                    if (id < 1 || id > menu->tam()) {
+                        cout << "Indice invalido" << endl;
+                    }
+                    else {
+                        Bebida* b = menu->getBebida(id - 1);
+                        if (b) {
+                            *historial = *historial + b;
+                            
+                        }
+                    }
+                } while (id != 0);
+                historial->guardarHistorial();
+            } 
+        }
         case 8:
-
+            historial->mostrarHistorial();
+            historial->cargarHistorial();
             break;
         case 9:
             cout << "Saliendo..." << endl;

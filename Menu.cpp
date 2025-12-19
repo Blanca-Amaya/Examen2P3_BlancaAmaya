@@ -96,9 +96,13 @@ void Menu::agregar(Bebida* b) {
 	menu.push_back(b);
 }
 
+int Menu::tam() {
+	return (int) menu.size();
+}
+
 Bebida* Menu::getBebida(int b2) {
-	if (b2 >= 0 && b2 < (int)menu.size()) {
-		return menu[i];
+	if (b2 >= 0 && (int)menu.size()) {
+		return menu[b2];
 	}
 	return nullptr;
 }

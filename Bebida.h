@@ -9,7 +9,8 @@ protected:
 public:
 	Bebida(const string nombre2, double precioBase2);
 	virtual double calcularPrecioFinal();
-	
+	virtual ~Bebida();
+
 	// getters 
 	string getNombre() const;
 	double getPrecioBase() const;

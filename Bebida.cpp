@@ -6,6 +6,10 @@ double Bebida::calcularPrecioFinal() {
 	return 0.0;
 }
 
+Bebida::~Bebida() {
+
+}
+
 string Bebida::getNombre() const {
 	return nombre;
 }
