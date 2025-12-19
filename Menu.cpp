@@ -46,7 +46,6 @@ void Menu::vaciarMenu() {
 		}
 	}
 	menu.clear();
-	cout << "Menú vaciado correctamente." << endl;
 }
 
 void Menu::guardarMenu() {
