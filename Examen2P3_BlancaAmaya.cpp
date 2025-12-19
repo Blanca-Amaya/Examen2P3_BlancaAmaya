@@ -36,14 +36,23 @@ void LomosCoffee() {
             int tipo;
             cout << "Ingrese el nombre de la bebida: ";
             cin >> nombre;
-            cout << "Ingrese Precio Base de la bebida: ";
-            cin >> precio;
-            if (precio <= 0) {
-                cout << "Precio inválido :C" << endl;
-                break;
-            }
-            cout << "1. Cafe, 2. Te, 3. Chocolate";
-            cin >> tipo;
+            do {
+                cout << "Ingrese Precio Base de la bebida: ";
+                cin >> precio;
+                if (precio <= 0) {
+                    cout << "Precio inválido :C" << endl;
+                    break;
+                }
+            } while (precio <= 0);
+
+            do {
+                cout << "1. Cafe, 2. Te, 3. Chocolate";
+                cin >> tipo;
+                if (tipo < 1 || tipo > 3) {
+                    cout << "Tipo invalido" << endl;
+                }
+            } while (tipo < 1 || tipo > 3);
+
             int valor;
             Bebida* b = nullptr;
             switch (tipo) {
@@ -55,6 +64,7 @@ void LomosCoffee() {
                     break;
                 }
                 b = new Cafe(nombre, precio, valor);
+                break;
             case 2:
                 cout << "Ingrese la esencia herbal: ";
                 cin >> valor;
@@ -63,6 +73,7 @@ void LomosCoffee() {
                     break;
                 }
                 b = new Te(nombre, precio, valor);
+                break;
             case 3:
                 cout << "Ingrese gramos de azucar: ";
                 cin >> valor;
@@ -71,6 +82,7 @@ void LomosCoffee() {
                     break;
                 }
                 b = new Chocolate(nombre, precio, valor);
+                break;
             default:
                 cout << "Opcion invalida";
                 break;
