@@ -1,9 +1,25 @@
 #include <iostream>
+#include "Menu.h"
+#include "Historial.h"
+
 using namespace std;
+
+void AgregarMenu() {
+    string nombre;
+    double precio;
+    int tipo;
+    int valor;
+    cout << "Ingrese el nombre de la bebida: ";
+    cin >> nombre;
+    cout << "Ingrese Precio Base de la bebida: "
+}
+
 
 void LomosCoffee() {
     int opcion;
     bool resp = true;
+    Menu menu;
+    Historial historial;
     while (resp) {
         cout << "¡Bienvenido al sistema Lomo's Coffee! Pónganse cómodo y siéntese a manejar su local :D" << endl;
         cout << "1. Ver Menú" << endl;
@@ -19,7 +35,7 @@ void LomosCoffee() {
         cin >> opcion;
         switch (opcion) {
         case 1:
-
+            menu.verMenu();
             break;
         case 2:
 
@@ -74,5 +90,5 @@ void menu() {
 }
 
 int main() {
-    
+    menu();
 }

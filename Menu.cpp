@@ -87,6 +87,18 @@ void Menu::cargarMenu(){
 	}
 }
 
+Menu Menu::operator+(Bebida* b) {
+	agregar(b);
+	return *this;
+}
+
 void Menu::agregar(Bebida* b) {
 	menu.push_back(b);
+}
+
+Bebida* Menu::getBebida(int b2) {
+	if (b2 >= 0 && b2 < (int)menu.size()) {
+		return menu[i];
+	}
+	return nullptr;
 }
