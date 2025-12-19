@@ -12,7 +12,10 @@ Menu::~Menu() {
 
 void Menu::eliminar(int indice) {
 	if (indice >= 0 && indice < (int)menu.size()) {
-		delete menu[indice];
+		if (menu[indice] != nullptr) {
+			delete menu[indice];
+			menu[indice] = nullptr;
+		}
 		menu.erase(menu.begin() + indice);
 	}
 	else {
@@ -38,6 +41,7 @@ void Menu::vaciarMenu() {
 	for (int i = 0; i < (int)menu.size(); i++) {
 		if (menu[i] != nullptr) {
 			delete menu[i];
+			menu[i] = nullptr;
 		}
 	}
 	menu.clear();
@@ -47,6 +51,8 @@ void Menu::vaciarMenu() {
 void Menu::guardarMenu() {
 	ofstream archivo("Menu.txt");
 	for (int i = 0; i < (int)menu.size(); i++) {
+		if (menu[i] == nullptr) continue;
+
 		Cafe* cafe = dynamic_cast<Cafe*>(menu[i]);
 		Te* te = dynamic_cast<Te*>(menu[i]);
 		Chocolate* chocolate = dynamic_cast<Chocolate*>(menu[i]);
@@ -111,7 +117,9 @@ Menu Menu::operator+(Bebida* b) {
 }
 
 void Menu::agregar(Bebida* b) {
-	menu.push_back(b);
+	if (b != nullptr) {
+		menu.push_back(b);
+	}
 }
 
 int Menu::tam() {
