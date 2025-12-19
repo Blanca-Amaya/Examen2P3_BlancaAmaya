@@ -7,3 +7,11 @@ double Te::calcularPrecioFinal() {
 	double precio = getPrecioBase();
 	return precio + (esencia_herbal / 100) * precio;
 }
+
+int Te::getEsenciaHerbal() const {
+	return esencia_herbal;
+}
+
+void Te::setEsenciaHerbal(int esencia_herbal2) {
+	esencia_herbal = esencia_herbal2;
+}

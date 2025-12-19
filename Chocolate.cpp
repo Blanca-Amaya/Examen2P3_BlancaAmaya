@@ -7,3 +7,11 @@ double Chocolate::calcularPrecioFinal() {
 	double precio = getPrecioBase();
 	return precio + (gramos_azucar / 100) * precio;
 }
+
+int Chocolate::getGramosAzucar() const {
+	return gramos_azucar;
+}
+
+void Chocolate::setGramosAzucar(int gramos_azucar2) {
+	gramos_azucar = gramos_azucar2;
+}

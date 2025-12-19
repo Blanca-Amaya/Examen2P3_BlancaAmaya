@@ -7,7 +7,7 @@ private:
 	int gramos_cafeina;
 public:
 	Cafe(const string nombre2, double precioBase2, int gramos_cafeina2);
-	double calcularPrecioFinal() override;
+	double calcularPrecioFinal();
 
 	// getters
 	int getGramosCafeina() const;

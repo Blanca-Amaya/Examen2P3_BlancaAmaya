@@ -6,7 +6,7 @@ private:
 	int gramos_azucar;
 public:
 	Chocolate(const string nombre2, double precioBase2, int gramos_azucar2);
-	double calcularPrecioFinal() override;
+	double calcularPrecioFinal();
 
 	// getters
 	int getGramosAzucar() const;

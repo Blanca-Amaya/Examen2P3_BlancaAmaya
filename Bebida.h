@@ -3,7 +3,7 @@
 using namespace std;
 
 class Bebida {
-private:
+protected:
 	string nombre;
 	double precioBase;
 public:

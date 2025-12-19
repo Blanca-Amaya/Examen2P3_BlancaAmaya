@@ -8,3 +8,11 @@ double Cafe::calcularPrecioFinal() {
 	return precio + (gramos_cafeina / 100) * precio;
 }
 
+int Cafe::getGramosCafeina() const {
+	return gramos_cafeina;
+}
+
+void Cafe::setGramosCafeina(int gramos2) {
+	gramos_cafeina = gramos2;
+}
+

@@ -7,7 +7,7 @@ private:
 	int esencia_herbal;
 public:
 	Te(string nombre2, double precioBase2, int esencia_herbal2);
-	double calcularPrecioFinal() override;
+	double calcularPrecioFinal();
 
 	// getters
 	int getEsenciaHerbal() const;

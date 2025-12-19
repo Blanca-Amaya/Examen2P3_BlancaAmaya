@@ -9,8 +9,12 @@ private:
 	vector <Bebida*> bebidas;
 public:
 	~Historial();
-	void guardarHistorial();
+	// guarda únicamente el NOMBRE y el PRECIO FINAL de CADA BEBIDA DEL VECTOR en el ARCHIVO BINARIO
+	void guardarHistorial(); 
+
 	void cargarHistorial();
+
+	// sobrecarga
 	Historial operator+(Bebida* b);
 };
 

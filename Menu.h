@@ -16,10 +16,10 @@ public:
 	void verMenu();
 	void vaciarMenu();
 	void guardarMenu();
-	void guardarMenu();
 	void cargarMenu();
 
 	Menu operator+(Bebida* b);
-
+	void agregar(Bebida* b);
+	Bebida* getBebida(int b2);
 };
 
