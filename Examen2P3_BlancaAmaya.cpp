@@ -4,6 +4,9 @@
 #include "Cafe.h"
 #include "Chocolate.h"
 #include "Te.h"
+#include <ctime>
+#include <string>
+#include <locale>
 using namespace std;
 
 void LomosCoffee() {
@@ -222,5 +225,6 @@ void menu() {
 }
 
 int main() {
+    setlocale(LC_ALL, "spanish");
     menu();
 }
